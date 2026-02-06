@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farhan Dev | Blue Beam Portfolio 2024</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons (Extremely Reliable) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@200;400;600;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for stars -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'blue-beam': {
+                            DEFAULT: '#00AEEF',
+                            light: '#00BFFF',
+                            deep: '#003366',
+                            dark: '#001F3F',
+                            glow: 'rgba(0, 174, 239, 0.4)'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'beam-flow': 'beam-flow 8s linear infinite',
+                        'neon-pulse': 'neon-pulse 1.5s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'beam-flow': {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '200% 50%' },
+                        },
+                        'neon-pulse': {
+                            'from': { boxShadow: '0 0 10px #00AEEF, 0 0 20px #00AEEF' },
+                            'to': { boxShadow: '0 0 25px #00BFFF, 0 0 50px #00BFFF' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            body { @apply bg-[#020617] text-slate-100 font-outfit overflow-x-hidden; }
+            h1, h2, h3 { @apply font-orbitron tracking-tight; }
+        }
+        @layer components {
+            .glass-card { 
+                @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 hover:border-blue-beam/40;
+                box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+            }
+            .btn-beam { 
+                @apply relative px-8 py-4 bg-blue-beam text-white font-black rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(0,174,239,0.3)] flex items-center justify-center gap-2 uppercase tracking-widest text-sm;
+            }
+            .section-title { @apply text-5xl md:text-7xl font-black text-center mb-24 relative uppercase italic; }
+            .section-title::after {
+                content: '';
+                @apply absolute -bottom-4 left-1/2 -translate-x-1/2 w-32 h-2 bg-blue-beam shadow-[0_0_20px_#00AEEF] rounded-full;
+            }
+            .input-field {
+                @apply w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-blue-beam transition-all focus:bg-white/10;
+            }
+        }
+
+        .blue-gradient-text {
+            @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-beam via-blue-beam-light to-blue-beam-deep animate-beam-flow;
+            background-size: 200% auto;
+        }
+
+        /* Scanline Overlay */
+        .scanlines::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.1;
+            background-size: 100% 2px, 2px 100%;
+        }
+    </style>
+</head>
+
+<body class="scanlines">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[100] py-6 px-4 md:px-12 transition-all duration-500" id="navbar">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-12 h-12 bg-blue-beam rounded-xl flex items-center justify-center shadow-[0_0_20px_#00AEEF] animate-neon-pulse">
+                    <i data-lucide="monitor" class="text-white w-7 h-7"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black text-white italic tracking-tighter leading-none">FARHAN<span
+                            class="text-blue-beam">.</span>DEV</span>
+                    <span class="text-[8px] font-bold text-blue-beam uppercase tracking-[0.3em]">Blue Beam Tech
+                        Architecture</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex gap-12 items-center">
+                <a href="#home"
+                    class="text-xs font-black tracking-widest text-slate-400 hover:text-blue-beam transition-colors">HOME</a>
+                <a href="#about"
+                    class="text-xs font-black tracking-widest text-slate-400 hover:text-blue-beam transition-colors">ABOUT</a>
+                <a href="#projects"
+                    class="text-xs font-black tracking-widest text-slate-400 hover:text-blue-beam transition-colors">PROJECTS</a>
+                <a href="#services"
+                    class="text-xs font-black tracking-widest text-slate-400 hover:text-blue-beam transition-colors">SERVICES</a>
+                <a href="#contact" class="btn-beam !px-8 !py-3 !text-[10px]">Contact now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
+        <div
+            class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-beam/10 rounded-full blur-[150px] animate-pulse">
+        </div>
+
+        <div
+            class="container mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-20 items-center text-center lg:text-left">
+            <div>
+                <div
+                    class="inline-block px-4 py-2 bg-blue-beam/10 border border-blue-beam/20 rounded-xl text-blue-beam font-black text-xs tracking-[0.3em] mb-8 animate-neon-pulse">
+                    FUTURISTIC WEB & APPS 2024
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black mb-8 leading-[0.9] italic text-white">
+                    I BUILD THE <br>
+                    <span class="blue-gradient-text">FUTURE.</span>
+                </h1>
+                <p
+                    class="text-xl md:text-2xl text-slate-400 font-light max-w-2xl lg:ml-0 mx-auto mb-12 leading-relaxed">
+                    Expert Architect in <span class="text-white font-bold">Node.js, React, HTML, CSS, JavaScript,
+                        Next.js, Firebase, TypeScript</span> & Scalable Cloud Ecosystems.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+                    <a href="#projects" class="btn-beam text-base">EXPLORE PROJECTS</a>
+                    <a href="#contact"
+                        class="px-10 py-4 border border-white/20 rounded-2xl font-bold hover:bg-white/10 transition-all text-base bg-white/5 flex items-center gap-3">
+                        <i data-lucide="zap" class="text-blue-beam"></i> CONTACT NOW
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative hidden lg:block">
+                <div
+                    class="w-full aspect-square glass-card transform rotate-6 animate-float flex items-center justify-center p-0 overflow-hidden relative border-blue-beam/30">
+                    <!-- Reliable High-Tech Image from Unsplash Source -->
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format"
+                        class="w-full h-full object-cover opacity-70" alt="Tech Background">
+                    <div class="absolute inset-0 bg-blue-beam/20 mix-blend-overlay"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
+
+                    <!-- Floating Icons inside Hero Card for Visual Hub -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="grid grid-cols-2 gap-10 opacity-80">
+                            <i data-lucide="code" class="w-16 h-16 text-blue-beam animate-pulse"></i>
+                            <i data-lucide="cpu" class="w-16 h-16 text-white animate-bounce"></i>
+                            <i data-lucide="globe" class="w-16 h-16 text-white animate-bounce delay-300"></i>
+                            <i data-lucide="database" class="w-16 h-16 text-blue-beam animate-pulse delay-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 bg-slate-900/30">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">The <span class="text-blue-beam">Architect</span></h2>
+
+            <div class="grid lg:grid-cols-2 gap-20 items-stretch">
+                <div class="glass-card flex flex-col justify-center">
+                    <h3 class="text-5xl font-black text-white mb-8 italic">FARHAN <span
+                            class="text-blue-beam">DEVELOPER</span></h3>
+                    <div class="space-y-6 text-slate-300 text-lg leading-relaxed font-light">
+                        <p class="border-l-4 border-blue-beam pl-6 bg-blue-beam/5 py-4 rounded-r-2xl">
+                            "I have spent the last 6 years mastering the art of high-tech code. My mission is to build
+                            software that doesn't just work, but <span class="text-blue-beam font-bold">dominates</span>
+                            the digital space."
+                        </p>
+                        <p>
+                            Specializing in the <span class="text-white font-bold">MERN Stack</span> and <span
+                                class="text-blue-beam font-bold">Firebase Architecture</span>, I create solutions that
+                            are scalable, secure, and visually breathtaking.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-rows-3 gap-6">
+                    <!-- Replacing logos with Reliable Lucide Icons in Boxes -->
+                    <div class="glass-card flex items-center gap-8 group hover:bg-blue-beam/5">
+                        <div
+                            class="w-20 h-20 bg-blue-beam/10 rounded-[1.5rem] flex items-center justify-center p-4 shadow-lg group-hover:scale-110 transition-all border border-blue-beam/20">
+                            <i data-lucide="graduation-cap" class="w-10 h-10 text-blue-beam"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-black text-white uppercase italic">BS Computer Science</h4>
+                            <p class="text-slate-400 text-sm">Class of 2020 • Excellence in Software Engineering</p>
+                        </div>
+                    </div>
+                    <div class="glass-card flex items-center gap-8 group hover:bg-blue-beam/5">
+                        <div
+                            class="w-20 h-20 bg-blue-beam/10 rounded-[1.5rem] flex items-center justify-center p-4 shadow-lg group-hover:scale-110 transition-all border border-blue-beam/20">
+                            <i data-lucide="layers" class="w-10 h-10 text-blue-beam"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-black text-white uppercase italic">Senior Full Stack Dev</h4>
+                            <p class="text-slate-400 text-sm">2021 - Present • Building Global Digital Products</p>
+                        </div>
+                    </div>
+                    <div class="glass-card flex items-center gap-8 group hover:bg-blue-beam/5">
+                        <div
+                            class="w-20 h-20 bg-blue-beam/10 rounded-[1.5rem] flex items-center justify-center p-4 shadow-lg group-hover:scale-110 transition-all border border-blue-beam/20">
+                            <i data-lucide="shield-check" class="w-10 h-10 text-blue-beam"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-black text-white uppercase italic">Firebase Certified Architect</h4>
+                            <p class="text-slate-400 text-sm">Expertise in Real-time systems & Cloud Security</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20">
+                <div class="text-center p-8 bg-white/5 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <span class="text-5xl font-black text-blue-beam block mb-2">100+</span>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Projects Done</p>
+                </div>
+                <div class="text-center p-8 bg-white/5 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <span class="text-5xl font-black text-blue-beam block mb-2">5+</span>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Years of XP</p>
+                </div>
+                <div class="text-center p-8 bg-white/5 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <span class="text-5xl font-black text-blue-beam block mb-2">50+</span>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Global Clients</p>
+                </div>
+                <div class="text-center p-8 bg-white/5 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <span class="text-5xl font-black text-blue-beam block mb-2">24/7</span>
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Signal Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 bg-slate-950">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Premium <span class="text-blue-beam">Tiers</span></h2>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Service 1 -->
+                <div class="glass-card hover:-translate-y-6 transition-all duration-700 relative overflow-hidden group">
+                    <div class="absolute -right-4 -top-4 w-32 h-32 bg-blue-beam/10 rounded-full blur-3xl"></div>
+                    <div
+                        class="w-16 h-16 bg-blue-beam/10 rounded-2xl flex items-center justify-center text-blue-beam mb-10 group-hover:bg-blue-beam group-hover:text-white transition-all shadow-xl">
+                        <i data-lucide="monitor" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-white mb-6 italic uppercase tracking-tighter">Web Development
+                    </h3>
+                    <p class="text-slate-400 mb-10 font-light leading-relaxed">Custom React.js websites with
+                        pixel-perfect design and ultra-fast loading speeds.</p>
+                    <div class="flex items-baseline gap-2 mb-10">
+                        <span class="text-sm text-slate-500 font-bold uppercase">starts at</span>
+                        <span class="text-5xl font-black text-blue-beam italic">$200</span>
+                    </div>
+                    <ul class="space-y-4 mb-12">
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> High Performance</li>
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Fully Responsive</li>
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> API Integration</li>
+                    </ul>
+                    <a href="#contact" class="btn-beam w-full">GET STARTED</a>
+                </div>
+
+                <!-- Service 2 -->
+                <div
+                    class="glass-card border-blue-beam/30 bg-blue-beam/5 hover:-translate-y-6 transition-all duration-700 relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 py-2 px-6 bg-blue-beam text-white text-[10px] font-black uppercase tracking-widest rounded-bl-2xl shadow-lg">
+                        RECOMMENDED</div>
+                    <div
+                        class="w-16 h-16 bg-blue-beam/20 rounded-2xl flex items-center justify-center text-blue-beam mb-10 group-hover:bg-blue-beam group-hover:text-white transition-all shadow-xl">
+                        <i data-lucide="smartphone" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-white mb-6 italic uppercase tracking-tighter">Mobile Apps</h3>
+                    <p class="text-slate-400 mb-10 font-light leading-relaxed">Cross-platform Android & iOS applications
+                        using React Native and Flutter technology.</p>
+                    <div class="flex items-baseline gap-2 mb-10">
+                        <span class="text-sm text-slate-500 font-bold uppercase">starts at</span>
+                        <span class="text-5xl font-black text-blue-beam italic">$200</span>
+                    </div>
+                    <ul class="space-y-4 mb-12">
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Native Experience</li>
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Cloud Storage</li>
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Push Alerts</li>
+                    </ul>
+                    <a href="#contact"
+                        class="btn-beam w-full !bg-white !text-blue-beam shadow-[0_0_30px_rgba(255,255,255,0.2)]">GET
+                        STARTED</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card hover:-translate-y-6 transition-all duration-700 relative overflow-hidden group">
+                    <div
+                        class="w-16 h-16 bg-blue-beam/10 rounded-2xl flex items-center justify-center text-blue-beam mb-10 group-hover:bg-blue-beam group-hover:text-white transition-all shadow-xl">
+                        <i data-lucide="database" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-white mb-6 italic uppercase tracking-tighter">Backend & Cloud
+                    </h3>
+                    <p class="text-slate-400 mb-10 font-light leading-relaxed">Robust Node.js APIs and highly secure
+                        Firebase/MongoDB database architectures.</p>
+                    <div class="flex items-baseline gap-2 mb-10">
+                        <span class="text-sm text-slate-500 font-bold uppercase">starts at</span>
+                        <span class="text-5xl font-black text-blue-beam italic">$250</span>
+                    </div>
+                    <ul class="space-y-4 mb-12">
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Extreme Privacy</li>
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Real-time Sync</li>
+                        <li class="flex items-center gap-3 text-slate-300 font-bold text-xs uppercase"><i
+                                data-lucide="check-circle-2" class="text-blue-beam w-4"></i> Auth Security</li>
+                    </ul>
+                    <a href="#contact" class="btn-beam w-full">GET STARTED</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Portfolio -->
+    <section id="projects" class="py-32 bg-slate-900/40 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Futuristic <span class="text-blue-beam">Archive</span></h2>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Project 1 -->
+                <div class="glass-card !p-0 overflow-hidden group">
+                    <div class="relative h-[450px]">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&auto=format"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent p-12 flex flex-col justify-end">
+                            <div class="flex gap-2 mb-4">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-white text-xs font-bold">(5.0 Rating)</span>
+                            </div>
+                            <h3 class="text-4xl font-black text-white italic uppercase tracking-tighter mb-4">Cyber
+                                E-Commerce</h3>
+                            <p class="text-slate-300 mb-8 max-w-md font-light">A next-gen shopping platform with
+                                holographic UI components.</p>
+                            <a href="#contact" class="btn-beam !px-6 !py-2 !text-[10px] w-fit">INQUIRE PROJECT</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="glass-card !p-0 overflow-hidden group">
+                    <div class="relative h-[450px]">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&auto=format"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent p-12 flex flex-col justify-end">
+                            <div class="flex gap-2 mb-4">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                <span class="text-white text-xs font-bold">(4.8 Rating)</span>
+                            </div>
+                            <h3 class="text-4xl font-black text-white italic uppercase tracking-tighter mb-4">Quantum
+                                Chat App</h3>
+                            <p class="text-slate-300 mb-8 max-w-md font-light">Zero-latency messaging system using
+                                Firebase real-time nodes.</p>
+                            <a href="#contact" class="btn-beam !px-6 !py-2 !text-[10px] w-fit">INQUIRE PROJECT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Hire Section -->
+    <section id="contact" class="py-32 bg-slate-950 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Initiate <span class="text-blue-beam">Contact</span></h2>
+
+            <div class="grid lg:grid-cols-2 gap-20">
+                <!-- Info -->
+                <div>
+                    <h3 class="text-4xl font-black text-white mb-8 italic uppercase">Push <span
+                            class="text-blue-beam">Signals</span> Directly</h3>
+                    <p class="text-slate-400 text-lg mb-16 max-w-lg">Signals are encrypted. Choose your preferred
+                        transmission method to reach the Architect directly.</p>
+
+                    <div class="space-y-12">
+                        <a href="mailto:Farhandev011@gmail.com" class="flex items-center gap-8 group">
+                            <div
+                                class="w-20 h-20 bg-blue-beam/10 border border-blue-beam/30 rounded-[1.5rem] flex items-center justify-center text-blue-beam transition-all group-hover:bg-blue-beam group-hover:text-white group-hover:scale-110">
+                                <i data-lucide="mail" class="w-10 h-10"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Direct
+                                    Email</p>
+                                <p
+                                    class="text-2xl font-black text-white tracking-widest uppercase truncate w-64 md:w-auto">
+                                    Farhandev011@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/923053702115" class="flex items-center gap-8 group">
+                            <div
+                                class="w-20 h-20 bg-[#25D366]/10 border border-[#25D366]/30 rounded-[1.5rem] flex items-center justify-center text-[#25D366] transition-all group-hover:bg-[#25D366] group-hover:text-white group-hover:scale-110">
+                                <i data-lucide="message-circle" class="w-10 h-10"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">WhatsApp
+                                    Hub</p>
+                                <p class="text-2xl font-black text-white tracking-widest uppercase">+92 305 3702115</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Forms -->
+                <div class="space-y-8">
+                    <div class="glass-card shadow-2xl">
+                        <div class="flex items-center gap-2 mb-6 text-[#25D366]">
+                            <i data-lucide="message-circle" class="w-5"></i>
+                            <span class="text-xs font-black uppercase tracking-widest">WhatsApp Transmission</span>
+                        </div>
+                        <textarea id="wa-message" rows="3" class="input-field mb-6"
+                            placeholder="Project details for WhatsApp..."></textarea>
+                        <button onclick="sendWhatsApp()" class="btn-beam w-full !bg-[#25D366]">TRANSMIT
+                            WHATSAPP</button>
+                    </div>
+
+                    <div class="glass-card shadow-2xl">
+                        <div class="flex items-center gap-2 mb-6 text-blue-beam">
+                            <i data-lucide="mail" class="w-5"></i>
+                            <span class="text-xs font-black uppercase tracking-widest">Email System</span>
+                        </div>
+                        <input id="email-subject" type="text" class="input-field mb-4" placeholder="Subject">
+                        <textarea id="email-body" rows="4" class="input-field mb-6"
+                            placeholder="Message for Email..."></textarea>
+                        <button onclick="sendEmail()" class="btn-beam w-full">TRANSMIT EMAIL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t border-white/5 bg-slate-950">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center gap-4 mb-10">
+                <div class="w-10 h-10 bg-blue-beam rounded-xl flex items-center justify-center">
+                    <i data-lucide="monitor" class="text-white w-6 h-6"></i>
+                </div>
+                <span class="text-3xl font-black text-white italic tracking-tighter uppercase">Farhan<span
+                        class="text-blue-beam">.</span>Dev</span>
+            </div>
+            <p class="text-slate-600 font-bold uppercase tracking-[0.5em] text-[10px] mb-8">&copy;Farhan.dev all rights reseved 2024</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialization
+        window.addEventListener('load', () => {
+            lucide.createIcons();
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4');
+                nav.classList.add('py-6');
+            }
+        });
+
+        // Communication Functions
+        function sendWhatsApp() {
+            const msg = document.getElementById('wa-message').value;
+            if (!msg) { alert("Please write a signal transmission."); return; }
+            window.open(`https://wa.me/923053702115?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function sendEmail() {
+            const sub = document.getElementById('email-subject').value;
+            const body = document.getElementById('email-body').value;
+            if (!body) { alert("Please write a signal transmission."); return; }
+            window.open(`mailto:Farhandev011@gmail.com?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`);
+        }
+    </script>
+</body>
+
+</html>
